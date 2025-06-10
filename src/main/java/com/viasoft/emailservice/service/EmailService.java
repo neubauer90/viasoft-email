@@ -5,16 +5,14 @@ import com.viasoft.emailservice.dto.EmailDTO;
 import com.viasoft.emailservice.dto.EmailRequestDTO;
 import com.viasoft.emailservice.factory.EmailProviderFactory;
 import com.viasoft.emailservice.provider.EmailProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService implements EmailSenderUseCase {
 
     private final EmailProviderFactory providerFactory;
-
-    public EmailService(EmailProviderFactory providerFactory) {
-        this.providerFactory = providerFactory;
-    }
 
     @Override
     public void processEmail(EmailRequestDTO emailRequestDTO) throws JsonProcessingException {

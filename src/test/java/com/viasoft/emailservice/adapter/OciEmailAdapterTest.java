@@ -1,5 +1,6 @@
 package com.viasoft.emailservice.adapter;
 
+import com.viasoft.emailservice.dto.EmailDTO;
 import com.viasoft.emailservice.dto.EmailOciDTO;
 import com.viasoft.emailservice.dto.EmailRequestDTO;
 import jakarta.validation.Validation;
@@ -12,11 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class OciEmailAdapterTest {
 
     private OciEmailAdapter adapter;
-    private Validator validator;
 
     @BeforeEach
     void setUp() {
-        validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         adapter = new OciEmailAdapter(validator);
     }
 
@@ -30,13 +30,13 @@ class OciEmailAdapterTest {
                 "Test Content"
         );
 
-        EmailOciDTO ociDTO = (EmailOciDTO) adapter.adapt(request);
+        EmailDTO ociDTO = adapter.adapt(request);
 
-        assertEquals(request.recipient(), ociDTO.recipientEmail());
-        assertEquals(request.recipientName(), ociDTO.recipientName());
-        assertEquals(request.sender(), ociDTO.senderEmail());
-        assertEquals(request.subject(), ociDTO.subject());
-        assertEquals(request.content(), ociDTO.body());
+        assertEquals(request.recipient(), ociDTO.getRecipient());
+        assertEquals(request.recipientName(), ociDTO.getRecipientName());
+        assertEquals(request.sender(), ociDTO.getSender());
+        assertEquals(request.subject(), ociDTO.getSubject());
+        assertEquals(request.content(), ociDTO.getContent());
     }
 
     @Test

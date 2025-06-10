@@ -9,6 +9,8 @@ Aplicação REST desenvolvida para o teste técnico da Viasoft. Recebe um objeto
 - Maven
 - Jackson (serialização JSON)
 - JUnit 5 (testes unitários)
+  Lombok (redução de boilerplate em classes Java)
+- Spring Utils (utilitários do Spring Framework)
 
 ## Configuração
 1. Configure o `application.properties` com `mail.integracao=AWS` ou `mail.integracao=OCI`.
@@ -35,6 +37,8 @@ A aplicação segue os princípios da **Clean Architecture**:
 - **Adapter Pattern**: Usado para adaptar `EmailRequestDTO` para `EmailAwsDTO` ou `EmailOciDTO`.
 - **Factory Pattern**: `EmailProviderFactory` seleciona o provedor com base em `mail.integracao`.
 - **Dependency Injection**: Injeção de dependências via Spring, incluindo `EmailSenderUseCase`.
+- **Singleton Pattern**: Utilizado implicitamente pelos beans gerenciados pelo Spring, garantindo uma única instância por contexto.
+- **Strategy Pattern**: Aplicado para permitir a seleção dinâmica de estratégias de adaptação e envio de e-mails, com interfaces como `EmailAdapter` e `EmailSenderGateway`, e implementações específicas para cada provedor.
 
 ## Validação de Dados
 - O `EmailRequestDTO` valida os campos obrigatórios e formatos de e-mail.
@@ -82,6 +86,10 @@ O relatório de cobertura estará disponível em `target/site/jacoco/index.html`
 
 ## Melhorias Futuras
 - Adicionar integração real com AWS SES ou OCI Email Service.
-- Implementar mais testes de integração.
-- Adicionar suporte a múltiplos idiomas.
-- Incluir logging para erros e métricas (ex.: Micrometer).
+- Implementar mais testes automatizados.
+- Ajustar o sistema para retornar todos os erros de validação de uma vez, em vez de apenas o primeiro, facilitando a correção pelo usuário.
+- Adicionar logs internos.
+- Segurança: Adicionar autenticação e autorização para proteger a API, especialmente se ela for exposta publicamente.
+- Rate Limiting: Adicionar limitação de taxa na API para evitar abusos ou sobrecarga.
+- Usar ferramentas como Swagger para criar uma documentação interativa da API, facilitando o uso por outros desenvolvedores.
+- Trocar dinamicamente o provedor de e-mail.

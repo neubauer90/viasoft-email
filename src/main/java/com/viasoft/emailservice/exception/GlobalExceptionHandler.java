@@ -14,31 +14,31 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.badRequest()
                 .body(new ErrorResponse("InputValidation", errorMessage));
     }
 
     @ExceptionHandler(InvalidIntegrationException.class)
     public ResponseEntity<ErrorResponse> handleInvalidIntegrationException(InvalidIntegrationException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.internalServerError()
                 .body(new ErrorResponse("IntegrationError", ex.getMessage()));
     }
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(ValidationException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.badRequest()
                 .body(new ErrorResponse("BusinessValidation", ex.getMessage()));
     }
 
     @ExceptionHandler(JsonProcessingException.class)
     public ResponseEntity<ErrorResponse> handleJsonProcessingException(JsonProcessingException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.internalServerError()
                 .body(new ErrorResponse("SerializationError", "Error serializing email data"));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.internalServerError()
                 .body(new ErrorResponse("UnexpectedError", "An unexpected error occurred: " + ex.getMessage()));
     }
 }

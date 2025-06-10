@@ -1,6 +1,7 @@
 package com.viasoft.emailservice.adapter;
 
 import com.viasoft.emailservice.dto.EmailAwsDTO;
+import com.viasoft.emailservice.dto.EmailDTO;
 import com.viasoft.emailservice.dto.EmailRequestDTO;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -12,11 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class AwsEmailAdapterTest {
 
     private AwsEmailAdapter adapter;
-    private Validator validator;
 
     @BeforeEach
     void setUp() {
-        validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         adapter = new AwsEmailAdapter(validator);
     }
 
@@ -30,13 +30,13 @@ class AwsEmailAdapterTest {
                 "Test Content"
         );
 
-        EmailAwsDTO awsDTO = (EmailAwsDTO) adapter.adapt(request);
+        EmailDTO awsDTO = adapter.adapt(request);
 
-        assertEquals(request.recipient(), awsDTO.recipient());
-        assertEquals(request.recipientName(), awsDTO.recipientName());
-        assertEquals(request.sender(), awsDTO.sender());
-        assertEquals(request.subject(), awsDTO.subject());
-        assertEquals(request.content(), awsDTO.content());
+        assertEquals(request.recipient(), awsDTO.getRecipient());
+        assertEquals(request.recipientName(), awsDTO.getRecipientName());
+        assertEquals(request.sender(), awsDTO.getSender());
+        assertEquals(request.subject(), awsDTO.getSubject());
+        assertEquals(request.content(), awsDTO.getContent());
     }
 
     @Test

@@ -24,6 +24,6 @@ public class EmailController {
     @PostMapping
     public ResponseEntity<Void> sendEmail(@Valid @RequestBody EmailRequestDTO emailRequestDTO) throws JsonProcessingException {
         emailSenderUseCase.processEmail(emailRequestDTO);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 }

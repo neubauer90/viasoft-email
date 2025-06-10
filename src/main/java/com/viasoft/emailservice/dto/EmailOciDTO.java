@@ -18,4 +18,29 @@ public record EmailOciDTO(
         @Size(max = 250, message = "Body must not exceed 250 characters")
         String body
 ) implements EmailDTO {
+
+        @Override
+        public String getRecipient() {
+                return recipientEmail;
+        }
+
+        @Override
+        public String getRecipientName() {
+                return recipientName;
+        }
+
+        @Override
+        public String getSender() {
+                return senderEmail;
+        }
+
+        @Override
+        public String getSubject() {
+                return subject;
+        }
+
+        @Override
+        public String getContent() {
+                return body;
+        }
 }

@@ -2,6 +2,7 @@ package com.viasoft.emailservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 public record EmailRequestDTO(
         @NotBlank(message = "Recipient email is required")
@@ -15,7 +16,6 @@ public record EmailRequestDTO(
         @Email(message = "Invalid sender email")
         String sender,
 
-        @NotBlank(message = "Subject is required")
         String subject,
 
         @NotBlank(message = "Content is required")

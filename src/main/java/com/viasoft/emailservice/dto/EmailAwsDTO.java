@@ -18,4 +18,29 @@ public record EmailAwsDTO(
         @Size(max = 256, message = "Content must not exceed 256 characters")
         String content
 ) implements EmailDTO {
+
+        @Override
+        public String getRecipient() {
+                return recipient;
+        }
+
+        @Override
+        public String getRecipientName() {
+                return recipientName;
+        }
+
+        @Override
+        public String getSender() {
+                return sender;
+        }
+
+        @Override
+        public String getSubject() {
+                return subject;
+        }
+
+        @Override
+        public String getContent() {
+                return content;
+        }
 }
